@@ -92,4 +92,4 @@ def UNET () :
                   optimizer='adam',
                   metrics=['accuracy'])
                   
-    return model
+    return model             

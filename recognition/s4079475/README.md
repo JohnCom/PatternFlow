@@ -23,8 +23,6 @@ Below you will find example model output relative to predicted test sets as well
 
 ![Results output](Readme_Images/Results.jpeg)
 
--- Insert graph here
-
 ![Model Summary](Readme_Images/Model_summary.jpeg)
 
 ## Depencies
@@ -68,9 +66,9 @@ To use the execute script all the libraries mentioned above must be installed th
 
 # References
 
-1) https://arxiv.org/abs/1802.10508v1
+1) Isensee, F. et al., 2018. Brain Tumor Segmentation and Radiomics Survival Prediction: Contribution to the BRATS 2017 Challenge. Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries, 10670, pp.287–297.
 
-2) 
+2) Hoorali, F., Khosravi, H. & Moradi, B., 2020. Automatic Bacillus anthracis 	bacteria detection and segmentation in microscopic images using UNet. Journal of microbiological methods, 177, p.106056.
 
-3) 
+3) Piao, S. & Liu, J., 2019. Accuracy Improvement of UNet Based on Dilated  Convolution. Journal of physics. Conference series, 1345(5), p.52066.
   

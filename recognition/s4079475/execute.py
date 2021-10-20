@@ -24,7 +24,7 @@ def encode_y(y):
     
     """
     
-    y = tf.keras.utils.to_categorical(y, num_classes=2)
+    y = tf.keras.utils.to_categorical(y, num_classes=8)
     return y
 
 # A class that can be parsed in to the fit model parameter

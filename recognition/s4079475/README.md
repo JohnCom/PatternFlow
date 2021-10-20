@@ -17,11 +17,11 @@ The key distinctions are concatenation blocks, to regulate neuronal learning and
 
 Below you will find example model output relative to predicted test sets as well as a graph of dice similarity vs epoch number. You will also be able to see the model summary showing different parts of the image relative to the standard improved UNET structure. This summary has been annotated to show the improved UNET aspects. 
 
--- Inset predicted output here
+![Results output](Readme_Images/Results.PNG)
 
 -- Insert graph here
 
--- Insert model summary here and annotations
+![Model Summary](Readme_Images/Model_summary.PNG)
 
 ## Depencies
 

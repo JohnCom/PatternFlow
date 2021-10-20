@@ -6,19 +6,27 @@ from tensorflow.keras.layers.experimental import preprocessing
 from tensorflow.keras import mixed_precision
 
 def dice(true, predicted):
-
     """
+
     This implements the metric for dice similarity.
     
     @param - true -- the true test dataset result / image result
     @param - predicted -- the model predicted result
     
     """
-
-    true = tf.keras.backend.flatten(true)
-    predicted = tf.keras.backend.flatten(predicted)
-    sum = tf.keras.backend.sum(predicted * true)
-    return (2.0 * sum)/tf.keras.backend.sum(predicted + true)
+    true = tf.keras.backend.batch_flatten(true)
+    predicted = tf.keras.backend.batch_flatten(predicted)
+    predicted = tf.keras.backend.round(predicted)
+    
+    e_positive = tf.keras.backend.sum(true, axis= -1)
+    p_positive = tf.keras.backend.sum(predicted, axis= -1)
+    
+    sum = tf.keras.backend.sum(predicted * true, axis = -1)
+    
+    false_neg = e_positive  - sum
+    false_pos = p_positive - sum
+    
+    return (2.0 * sum)/(2 * sum + false_neg + false_pos)
 
 def dice_foreground(true, predicted):
 

@@ -1,4 +1,6 @@
-# Task 1 - Segment the ISICs data set with the Improved UNet as defined in Isensee et al. with all labels having a minimum Dice Similarity of 0.8 on the test set. 
+# Task 1 - Segment the ISICs data set with the Improved UNet
+
+### Defined in Isensee et al. with all labels having a minimum Dice Similarity of 0.8 on the test set.  
 
 ## Dataset Information
 

@@ -25,6 +25,15 @@ Below you will find example model output relative to predicted test sets as well
 
 ![Model Summary](Readme_Images/Model_summary.jpeg)
 
+## Test / Training / Validation split
+Currently the initial training and ground data sets are split 20% into test sets and 80% into training set. Of this remaining 80% 20% is further split into a validation set (slightly smaller than the test set). 
+
+_Breakdown_ 
+
+Training images - 64% of original data sets for ground and training.
+Test images - 20% of originial data sets for ground and training.
+Validation images - 16% of original data sets for ground and training. 
+
 ## Depencies
 
 ### To use the project.py file (model generation)
@@ -66,7 +75,7 @@ To use the execute script all the libraries mentioned above must be installed th
 
 # References
 
-1) Isensee, F. et al., 2018. Brain Tumor Segmentation and Radiomics Survival Prediction: Contribution to the BRATS 2017 Challenge. Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries, 10670, pp.287–297.
+1) Isensee, F. et al., 2018. Brain Tumor Segmentation and Radiomics Survival Prediction: Contribution to the BRATS 2017 Challenge. Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries, 10670, pp.287–297.R
 
 2) Hoorali, F., Khosravi, H. & Moradi, B., 2020. Automatic Bacillus anthracis 	bacteria detection and segmentation in microscopic images using UNet. Journal of microbiological methods, 177, p.106056.
 

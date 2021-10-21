@@ -54,7 +54,7 @@ The following libraries must be installed
 The execute script is dependant on the training images and ground truth images being downloaded and stored locally. These sets can be downloaded from the ISICs
 website. The location of the sets must be referenced within the execute.py file script. 
 
-#Usage
+##Usage
 
 project.py
 
@@ -72,7 +72,7 @@ execute.py
 
 To use the execute script all the libraries mentioned above must be installed. The file can simply be called within as standard dos or linux setup using "execute.py" on the command line. This script will segment the training and ground truth sets into associated test, validation and training sets. It will create the model and it will then evaluate and return example output. 
 
-#References
+##References
 
 1) Isensee, F. et al., 2018. Brain Tumor Segmentation and Radiomics Survival Prediction: Contribution to the BRATS 2017 Challenge. Brainlesion: Glioma, Multiple Sclerosis, Stroke and Traumatic Brain Injuries, 10670, pp.287–297.R
 

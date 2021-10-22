@@ -154,15 +154,18 @@ def show_images(test, model) :
     plt.figure(figsize=(10, 10))
     
     for i in range(8):
-        plt.subplot(10, 10, i*10+2)
+        plt.subplot(9, 3, i*3+1)
         plt.imshow(x[i])
-        plt.title("Original Image", size=4)
-        plt.subplot(10, 10, i*10+4)
+        plt.axis('off')
+        plt.title("Original Image", size=8)
+        plt.subplot(9, 3, i*3+2)
         plt.imshow(tf.argmax(prediction[i], axis=2))
-        plt.title("Model Output", size=4)
-        plt.subplot(10, 10, i*10+6)
+        plt.axis('off')
+        plt.title("Model Output", size=8)
+        plt.subplot(9, 3, i*3+3)
         plt.imshow(tf.argmax(y[i], axis=2))
-        plt.title("What it should be", size=4)
+        plt.axis('off')
+        plt.title("What it should be", size=8)
     plt.show()
 
 if __name__ == "__main__":

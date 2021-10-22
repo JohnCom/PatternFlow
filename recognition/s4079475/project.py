@@ -14,6 +14,10 @@ def dice(true, predicted):
     @param - predicted -- the model predicted result
     
     """
+    
+    #true = true[:, :, 1]
+    #predicted = predicted[:, :, 1]
+    
     true = tf.keras.backend.batch_flatten(true)
     predicted = tf.keras.backend.batch_flatten(predicted)
     predicted = tf.keras.backend.round(predicted)
@@ -112,7 +116,7 @@ def downsample_layer(input) :
     return result
 
 
-def refine_layer(input, filters) :
+def localisation(input, filters) :
     """
     This implements the localisation module defined in Isensee et al. 
     
@@ -142,7 +146,6 @@ def UNET () :
     
     input = tf.keras.layers.Input(shape=(192, 256, 3))
 
-    #although paper says start with 16 seem to get better results starting with 8?
     filters = 8    
     
     #Initial convolution
@@ -175,18 +178,18 @@ def UNET () :
     current = upsample_layer(extract, filters, extract4)  
     
     #localisation module
-    current = refine_layer(current, filters)
+    current = localisation(current, filters)
     filters = filters/2
     #upsample
     current = upsample_layer(current, filters, extract3)
 
-    current = refine_layer(current, filters)
+    current = localisation(current, filters)
     filters = filters/2
     segment = feature_conv_layer(current, filters, size=(1, 1))
     segment = tf.keras.layers.UpSampling2D((2, 2))(segment)
     current = upsample_layer(current, filters, extract2)
     
-    current = refine_layer(current, filters)
+    current = localisation(current, filters)
     filters = filters/2
     segment2 = feature_conv_layer(current, 16, size=(1, 1))
     
@@ -210,6 +213,6 @@ def UNET () :
     
     model.compile(loss= tf.keras.losses.CategoricalCrossentropy(),
                   optimizer='adam',
-                  metrics=['accuracy', dice_foreground])
+                  metrics=['accuracy', dice])
                   
     return model             

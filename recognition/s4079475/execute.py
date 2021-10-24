@@ -35,7 +35,7 @@ def encode_y(y):
 class ISICs2018Sequence(Sequence):
     
     """
-    A class defining a Sequence to be used iteratively for each batch and epoch such that the model has access to the raw training and ground image in real time. 
+    A class defining a Sequence to be used iteratively for each batch and epoch. 
     
     @param Sequence -- A keras Sequence
     
@@ -72,6 +72,7 @@ class ISICs2018Sequence(Sequence):
         """
         
         Gets the subject image and ground truth image associated with the current batch for the current image id that the model is processing. 
+        Gurantees training on each sample per epoch. 
         
         @param id - The current id of the subject image being used in the model. 
         
@@ -154,18 +155,28 @@ def show_images(test, model) :
     plt.figure(figsize=(10, 10))
     
     for i in range(8):
+           
         plt.subplot(9, 3, i*3+1)
         plt.imshow(x[i])
         plt.axis('off')
-        plt.title("Original Image", size=8)
+        
+        if i == 0 :
+            plt.title("Original Image", size=8)     
+        
         plt.subplot(9, 3, i*3+2)
         plt.imshow(tf.argmax(prediction[i], axis=2))
         plt.axis('off')
-        plt.title("Model Output", size=8)
+        
+        if i == 0 :
+            plt.title("Model Output", size=8)
+        
         plt.subplot(9, 3, i*3+3)
         plt.imshow(tf.argmax(y[i], axis=2))
         plt.axis('off')
-        plt.title("What it should be", size=8)
+        
+        if i == 0 :
+            plt.title("What it should be", size=8)
+    
     plt.show()
 
 if __name__ == "__main__":

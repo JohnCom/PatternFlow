@@ -8,11 +8,15 @@ The dataset used in this task is the ISICs 2018 dataset containing 2594 images a
 
 ## UNET structure and Improved UNET
 
-A typical UNET model structure can be found in image (XYZ) below. This image shows 9 main blocks, with each block having a different role across the model. Loosely the model can be broken into two categories, feature extraction and downsampling, and localisation and upsampling. Typically an input image is taken and progressively features are extracted to a desired model depth (1024 filter depth in the image below) and then localisation occurs back to the starting filter level. An extraction and downsampling block involves two 3x3 Relu convolutions about the subject filter level followed by a downsampling layer (stride change or maxpooling). A typical localisation and upsampling block involves two 3x3 Relu convolutions followed by a 2x2 convolution layer. The advantages of a UNET model is the time to training and accuracy on image sets. They are a good application in diagnostic imaging. 
+A typical UNET model structure can be found in image (1) below. This image shows 9 main blocks, with each block having a different role across the model. Loosely the model can be broken into two categories, feature extraction and downsampling, and localisation and upsampling. Typically an input image is taken and progressively features are extracted to a desired model depth (1024 filter depth in the image below) and then localisation occurs back to the starting filter level. An extraction and downsampling block involves two 3x3 Relu convolutions about the subject filter level followed by a downsampling layer (stride change or maxpooling). A typical localisation and upsampling block involves two 3x3 Relu convolutions followed by a 2x2 convolution layer. The advantages of a UNET model is the time to training and accuracy on image sets. They are a good application in diagnostic imaging. 
 
-The model implemented in this task is the improved UNET model taken from (1).
-There are several key distinctions made in this model relative to the typical UNET described above and figure (XYZ) shows this model. 
+![Figure 1 - UNET Structure](Readme_Images/UNETStructure.jpeg)
+
+The model implemented in this task is the improved UNET model taken from [1].
+There are several key distinctions made in this model relative to the typical UNET described above and figure (2) shows this model. 
 The key distinctions are concatenation blocks, to regulate neuronal learning and the use of LeakyRelu layers over Relu layers in a typical UNET to account for sparse gradients within imaging.
+
+![Figure 2 - Improved UNET Structure](Readme_Images/UNETStructure.jpeg)
 
 ## Model Results
 
@@ -25,7 +29,7 @@ Below you will find example model output relative to predicted test sets as well
 ![Model Summary](Readme_Images/Model_summary.jpeg)
 
 ## Test / Training / Validation split
-Currently the initial training and ground data sets are split 20% into test sets and 80% into training set. Of this remaining 80%, 20% is further split into a validation set (slightly smaller than the test set). 
+Currently the initial training and ground data sets are split 20% into test sets and 80% into training set. Of this remaining 80%, 20% is further split into a validation set (slightly smaller than the test set). Images are shuffled with the same random seed prior to segmentation and thus splitting is random at the below fixed proportions. 
 
 _Breakdown_ 
 
@@ -71,6 +75,8 @@ The UNET() function returns a UNET model for use in the associated file.
 execute.py
 
 To use the execute script all the libraries mentioned above must be installed. The file can simply be called within as standard dos or linux setup using "execute.py" on the command line. This script will segment the training and ground truth sets into associated test, validation and training sets. It will create the model and it will then evaluate and return example output. 
+
+Furthermore to run the execute file, load up an anaconda instance (with dependencies insatlled) and run   
 
 ## References
 

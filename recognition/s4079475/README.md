@@ -10,9 +10,9 @@ The dataset used in this task is the ISICs 2018 dataset containing 2594 images a
 
 A typical UNET model structure can be found in image (1) below. This image shows 9 main blocks, with each block having a different role across the model. Loosely the model can be broken into two categories, feature extraction and downsampling, and localisation and upsampling. Typically an input image is taken and progressively features are extracted to a desired model depth (1024 filter depth in the image below) and then localisation occurs back to the starting filter level. An extraction and downsampling block involves two 3x3 Relu convolutions about the subject filter level followed by a downsampling layer (stride change or maxpooling). A typical localisation and upsampling block involves two 3x3 Relu convolutions followed by a 2x2 convolution layer. The advantages of a UNET model is the time to training and accuracy on image sets. They are a good application in diagnostic imaging. 
 
-![Figure 1 - UNET Structure](Readme_Images/UNETStructure.jpeg)
+![Figure 1 - UNET Structure](Readme_Images/UNETStructurebase.jpeg)
 
-The model implemented in this task is the improved UNET model taken from [1].
+The model implemented in this task is the improved UNET model taken from (1).
 There are several key distinctions made in this model relative to the typical UNET described above and figure (2) shows this model. 
 The key distinctions are concatenation blocks, to regulate neuronal learning and the use of LeakyRelu layers over Relu layers in a typical UNET to account for sparse gradients within imaging.
 

@@ -3,14 +3,13 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models, regularizers
-from tensorflow.keras.layers.experimental import preprocessing
 from sklearn.model_selection import train_test_split
 from tensorflow.keras import mixed_precision
 from tensorflow.keras.utils import to_categorical, Sequence
 import project as p
 import model as m
 import os
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from PIL import Image
 import math
 import random
@@ -129,7 +128,6 @@ def load_data(directory, seed) :
 def plot_result():
 
     """ 
-    
     Plots the number of epochs vs the average dice similarity
     
     """
@@ -196,40 +194,6 @@ if __name__ == "__main__":
     train = load_data(training_directory, seed)
     #test = load_data("D:/3710sets/ISIC_2019_Test_Input/ISIC_2019_Test_Input", seed)
     ground = load_data(ground_directory, seed)
-    
-    #creating a validation split
-    #num_images = len(train)
-    #num_labels = len(test_names)
-    
-    #val_split = 20 #20% for a multiple of 8
-    #num_val_images = int(num_images * (val_split/100))
-    #val_images = train[ : num_val_images] 
-    #val_seg = ground[ : num_val_images]
-    
-    #train_images = train[num_val_images :]
-    #train_seg = ground[num_val_images :]
-     
-    #train_set = tf.data.Dataset.from_tensor_slices((train_images, train_seg))
-    #test_set = tf.data.Dataset.from_tensor_slices((val_images, val_seg))    
-    
-    #train_set = train_set.map(map_images)
-    #test_set = test_set.map(map_images)
-
-    
-    #suffle datasets?
-
-    #train_labels = to_categorical(train_labels, num_classes)
-    #test_labels = to_categorical(test_labels, num_classes)
-    #val_labels = to_categorical(val_labels, num_classes)
-    
-    #print(len(train_images), "train shape")
-    #print(len(train_seg), "train shape")    
-    
-    #print(train_images[:3], "three train images")
-    #print(train_seg[:3], "three seg images")
-       
-    #view_images(train_images, 3)
-    #plt.show()
 
     validation_prop = 0.2
     test_prop = validation_prop
@@ -249,7 +213,7 @@ if __name__ == "__main__":
     
     model.fit(train,
           validation_data=val,
-          epochs=10, verbose=1, workers=4)
+          epochs=20, verbose=1, workers=4)
     
     model.evaluate(test)
     

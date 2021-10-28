@@ -24,7 +24,7 @@ Below you will find example model output relative to predicted test sets as well
 
 ![Results output](Readme_Images/model_output.jpeg)
 
-![Results output](Readme_Images/Results.jpeg)
+![Results output](Readme_Images/Results_2.jpeg)
 
 ![Model Summary](Readme_Images/Model_summary.jpeg)
 

@@ -1,60 +1,43 @@
 
-import numpy as np
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models, regularizers
 from tensorflow.keras.layers.experimental import preprocessing
 from tensorflow.keras import mixed_precision
 
-def dice(true, predicted):
+def dice(true, predicted, type=0):
     """
 
     This implements the metric for dice similarity.
     
     @param - true -- the true test dataset result / image result
     @param - predicted -- the model predicted result
-    
+    @param - type - an integer representing the type of dice
+                    full image dice = 0
+                    foreground image dice = 1
+                    background image dice = 2
+                    
     """
     
-    #true = true[:, :, 1]
-    #predicted = predicted[:, :, 1]
+    if type == 1 :
+        true = true[:, :, 1]
+        predicted = predicted[:, :, 1]
     
-    true = tf.keras.backend.batch_flatten(true)
-    predicted = tf.keras.backend.batch_flatten(predicted)
-    predicted = tf.keras.backend.round(predicted)
+    if type == 2 :
+        true = true[:, :, 0]
+        predicted = predicted[:, :, 0]
     
-    e_positive = tf.keras.backend.sum(true, axis= -1)
-    p_positive = tf.keras.backend.sum(predicted, axis= -1)
     
-    sum = tf.keras.backend.sum(predicted * true, axis = -1)
+    #rounding to one decimal place
+    true = tf.round(true * 10) / 10
+    predicted = tf.round(predicted * 10) / 10
     
-    false_neg = e_positive  - sum
-    false_pos = p_positive - sum
+    numerator = tf.cast(tf.where(tf.equal(true, predicted), predicted, 0), tf.float32)
+    numerator = 2 * tf.math.reduce_sum(numerator)
     
-    return (2.0 * sum)/(2 * sum + false_neg + false_pos)
-
-def dice_foreground(true, predicted):
-
-    """
-    Only calculates dice similarity for foreground results (the parts of the image that are deemed problematic).
+    card_true = tf.math.reduce_sum(true)
+    card_predicted = tf.math.reduce_sum(predicted)
     
-    @param - true -- the true test dataset result / image result
-    @param - predicted -- the model predicted result
-    
-    """
-    
-    return dice(true[:,:,1], predicted[:,:,1])
-
-def dice_background(true, predicted):
-    
-    """
-    Only calculates dice similarity for background results (the parts of the image surrounding the problematic area).
-    
-    @param - true -- the true test dataset result / image result
-    @param - predicted -- the model predicted result
-    
-    """
-    
-    return dice(true[:,:,0], predicted[:,:,0])
+    return numerator / (card_true + card_predicted)
 
 def feature_conv_layer(input, filters, stride=1, size=(3, 3)) :
     
@@ -117,6 +100,7 @@ def downsample_layer(input) :
 
 
 def localisation(input, filters) :
+
     """
     This implements the localisation module defined in Isensee et al. 
     
@@ -138,9 +122,9 @@ def UNET () :
     
     It makes a couple of small hyperparameter modifications that have been deemed to have a small increase in performance based on the metric calculations used for dice similarity. 
     
-    As the model in the paper suggests this implementation uses multiple context modules (defined in extraction_layer) together with downsampling layers followed by localisation_modules (defined in refine_layer) togetehr with upsampling modules. Segmentation is then done towards the end of the model and concatenation of different final level segmented convolutions is done to avoid learning loss.
+    As the model in the paper suggests this implementation uses multiple context modules (defined in extraction_layer) together with downsampling layers followed by localisation_modules (defined in refine_layer) together with upsampling modules. Segmentation is then done towards the end of the model and concatenation of different final level segmented convolutions is done to avoid learning loss.
     
-    @returns --- an improved UNET model defined in the paper 
+    @returns --- an improved UNET model defined in the paper. 
 
     """
     

@@ -29,9 +29,10 @@ Below you will find example model output relative to predicted test sets in figu
 *Figure 3 - Model Output*
 
 ![Results output](Readme_Images/Results_2.jpeg)
-*Figure 4 - Results from execution*
+*Figure 4 - Results from execution shows a validated dice similarity greater than 0.8 during evaluation of the test set as well as a validated dice similarity above 0.80 in the final epochs*
 
 ![Model Summary](Readme_Images/Model_summary.jpeg)
+
 *Figure 5 - Model Summary output*
 
 ## Test / Training / Validation split

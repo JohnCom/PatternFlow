@@ -112,8 +112,7 @@ def localisation(input, filters) :
     result = feature_conv_layer(input, filters)
     result = feature_conv_layer(result, filters, size=(1,1))
     return result
-
-#Implements the improved UNET structure as defined in the paper by F. Isensee et al. 
+ 
 def UNET () :
 
     """
@@ -157,7 +156,7 @@ def UNET () :
     
     #final context
     extract = extraction_layer(current, filters)
-    filters = filters / 2
+    filters = filters/2
     #upsample
     current = upsample_layer(extract, filters, extract4)  
     

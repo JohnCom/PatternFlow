@@ -9,7 +9,7 @@ from tensorflow.keras.utils import to_categorical, Sequence
 import project as p
 import model as m
 import os
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from PIL import Image
 import math
 import random
@@ -58,11 +58,10 @@ class ISICs2018Sequence(Sequence):
     def __len__(self):
         
         """
-        
+     
         Returns the length of this Sequence object
 
         """
-        
         
         return math.ceil(len(self.x) / self.batchsize)
     
@@ -125,14 +124,24 @@ def load_data(directory, seed) :
 
     return loaded
 
-def plot_result():
+def plot_result(history):
 
     """ 
     Plots the number of epochs vs the average dice similarity
     
     """
 
-    return None
+    plt.plot(history.history['accuracy'], label='accuracy')
+    plt.plot(history.history['val_accuracy'], label='val_accuracy')
+    
+    plt.plot(history.history['dice'], label='dice')
+    plt.plot(history.history['val_dice'], label = 'val_dice')
+    plt.xlabel('Epoch')
+    plt.ylabel('Dice / Accuracy Coefficient')
+    plt.ylim([0.5, 1])
+    plt.legend(loc='lower right')
+    
+    plt.show()
 
 def show_images(test, model) :
     
@@ -181,9 +190,10 @@ if __name__ == "__main__":
 
     """
     
-    Loads the sets, segements the sets into training, validation and test sets and runs the model.
+    Loads the sets, segements and shuffles the sets into training, validation and test, then runs the model.
     
     The directory for the data sets must be set in the associated strings.
+    training_directory and ground_directory.
 
     """
 
@@ -192,7 +202,6 @@ if __name__ == "__main__":
 
     seed = random.random()
     train = load_data(training_directory, seed)
-    #test = load_data("D:/3710sets/ISIC_2019_Test_Input/ISIC_2019_Test_Input", seed)
     ground = load_data(ground_directory, seed)
 
     validation_prop = 0.2
@@ -209,12 +218,12 @@ if __name__ == "__main__":
     
     model = p.UNET()
     
-    print(len(train),  "length train")
-    
-    model.fit(train,
+    history = model.fit(train,
           validation_data=val,
-          epochs=20, verbose=1, workers=4)
+          epochs=30, verbose=1, workers=4)
     
     model.evaluate(test)
+    
+    plot_result(history)
     
     show_images(test, model)

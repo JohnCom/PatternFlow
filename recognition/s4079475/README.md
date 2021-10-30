@@ -1,6 +1,6 @@
 # Task 1 - Segment the ISICs data set with the Improved UNet
 
-### Defined in Isensee et al. with all labels having a minimum Dice Similarity of 0.8 on the test set.  
+### Defined in Isensee et al. with all labels having a minimum dice similarity of 0.8 on the test set.  
 
 ## Problem Description and Dataset Information
 
@@ -29,20 +29,24 @@ The key distinctions are concatenation blocks, to regulate neuronal learning and
 Below you will find example model output and results relative to predicted test sets in figure 3 and 4. You will also be able to see the model summary showing the model implemented in figure 6. 
 
 ![Results output](Readme_Images/model_output.jpeg)
+
 *Figure 3 - Model Output*
 
-![Results output](Readme_Images/Results_2.jpeg)
+![Results output](Readme_Images/Results.jpeg)
+
 *Figure 4 - Results from execution shows a validated dice similarity greater than 0.8 during evaluation of the test set as well as a validated dice similarity above 0.80 in the final epochs.*
 
 ![Results output](Readme_Images/Results_3.jpeg)
+
 *Figure 5 - Plot showing the dice similarity at associated epoch number
 
 ![Model Summary](Readme_Images/Model_summary.jpeg)
+
 *Figure 6 - Model Summary output*
 
 ## Interesting Observations and Potential Future Improvements
 
-From the results output you can ssee in figure 3. You will observe that most of the model output (middle column) matches quite well the ground truth image on the far right, except for image 8 (1 from the bottom). For this image the model has determined that the problematic area includes the slightly inflamed region below and to the right of the brown spot. It would probably take a doctor or skin specialist to determine whether this is inclusive of the problematic area and whether or not our model is doing the correct thing. However for the puposes of this project it has been assumed the output is incorrect and that the deviated region from the ground truth is incorrectly highlighted. As such here I will propose mechanisms that can cater for this issue. 
+From the results output shown in figure 3. You will observe that most of the model output (middle column) matches quite well the ground truth image on the far right, except for image 8 (1 from the bottom). For this image the model has determined that the problematic area includes the slightly inflamed region below and to the right of the brown spot. It would probably take a doctor or skin specialist to determine whether this is inclusive of the problematic area and whether or not our model is doing the correct thing. However for the puposes of this project it has been assumed the output is incorrect and that the deviated region from the ground truth is incorrectly highlighted. As such here I will propose mechanisms that can cater for this issue. 
 
 From looking at the image it seems as though some slightly discouloured inflamed and red regions surrounding the brown dot have been included. To handle this our model will need to recognise these regions as non problematic and not diagnose normal skin behaviour as problematic. Asssuming this red region to be non-problematic. My solution to handle this (which has not been implemented here because it was not required) would be to train an additional UNET model (improved or not) surrounding normal skin behaviuor (model A). I.e. train the model to label correctly normal skin behaviour. Then parse this model through this current implementation (model B) which recognises and labels problematic skin lesions however at the model diagnostic step (labelling) compute the difference between model B and model A tensors as the model output for the same reference image. In our subject image described earlier what this should do is remove the inflamed red region we are assuming to be normal skin behaviour because our model A should have recognised this. In the case where there is no substantial difference (within some value range) we would take the results of model B (this implementation).  
 
@@ -85,7 +89,7 @@ The execute script is dependant on the training images and ground truth images b
 
 project.py
 
-To use the improved UNET model the project.py file must be stored locally and imported within the file wishing to use the model. Following import, the model can be referenced by using the UNET() funciton. 
+To use the improved UNET model the project.py file must be stored locally and imported within the file wishing to use the model. Following import, the model can be referenced by using the UNET() function. 
 
 _Example_
 
@@ -101,7 +105,7 @@ To use the execute script all the libraries mentioned above must be installed. T
 	
 This script will segment the training and ground truth sets into associated test, validation and training sets. It will create the model and it will then evaluate and return example output. 
 
-Furthermore to run the execute file, load up an anaconda instance (with dependencies insatlled) and run the following commands.   
+Furthermore to run the execute file, load up an anaconda instance (with dependencies installed) and run the following command.   
 
 _Example_
 	
